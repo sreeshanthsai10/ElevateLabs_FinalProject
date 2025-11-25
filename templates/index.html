@@ -1,0 +1,135 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Text Summarizer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">🤖 AI Text Summarizer</h1>
+    <form method="POST" action="/">
+        <div class="mb-3">
+            <textarea class="form-control form-control-lg" id="text" name="text" rows="10" placeholder="Paste text here..." required>{{ original_text if original_text else "" }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-3">✨ Generate Summary</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if summary %}
+    <div class="card mb-4 mt-5">
+        <div class="card-header bg-success text-white"><strong>Generated Summary</strong></div>
+        <div class="card-body"><p>{{ summary }}</p></div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white"><strong>Text Metrics</strong></div>
+        <div class="card-body">
+            <ul>
+                <li><b>Original Word Count:</b> {{ original_word_count }}</li>
+                <li><b>Summary Word Count:</b> {{ summary_word_count }}</li>
+                <li><b>Compression Ratio:</b> {{ '%.1f'|format(summary_word_count / original_word_count * 100) }}%</li>
+                <li><b>Flesch Reading Ease:</b> {{ '%.2f'|format(flesch_reading_ease) }}</li>
+                <li><b>Flesch-Kincaid Grade:</b> {{ '%.2f'|format(flesch_kincaid_grade) }}</li>
+                <li><b>Gunning Fog:</b> {{ '%.2f'|format(gunning_fog) }}</li>
+                <li><b>SMOG Index:</b> {{ '%.2f'|format(smog_index) }}</li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Text Summarizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="card shadow-lg p-4 mt-4">
+        <h2 class="mb-2 text-center fw-bold" style="letter-spacing:1px; color: #262B49;">AI Text Summarizer</h2>
+        <p class="text-center text-muted mb-4">Paste your article below to instantly get a concise summary.</p>
+        <form id="summarizeForm" method="POST" action="/">
+            <textarea class="form-control mb-3 p-3"
+                      id="text" name="text" rows="8"
+                      placeholder="Paste your text here..."
+                      style="resize:vertical; background:#F6F7FB; border-radius: 10px;">{{ original_text if original_text else "" }}</textarea>
+            <button id="summarizeBtn" type="submit"
+                    class="btn w-100 py-2"
+                    style="background: linear-gradient(100deg,#48C6EF 0%, #6f86d6 100%); color:white; font-weight:bold; border-radius:8px;">
+                <span>✨ Summarize</span>
+            </button>
+        </form>
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner-border" style="color:#48C6EF;" role="status">
+                <span class="visually-hidden">Summarizing...</span>
+            </div>
+            <span class="ms-3 fw-semibold" style="color:#48C6EF;">Summarizing...</span>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'info' }} mt-2">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% if summary %}
+        <div class="card mt-4 mb-3 border-0 shadow responsive-card">
+            <div class="card-header"
+                 style="background: linear-gradient(100deg,#7F7FD5 0%, #86A8E7 100%); color: #fff; font-weight:bold;">
+                📝 Your Summary
+            </div>
+            <div class="card-body">
+                <p class="summary-text m-2">{{ summary }}</p>
+            </div>
+        </div>
+        <div class="card mb-2 border-0 shadow responsive-card">
+            <div class="card-header"
+                 style="background: linear-gradient(110deg,#43e97b 0%, #38f9d7 100%); color: #fff; font-weight:bold;">
+                Text Metrics
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-2 mb-md-0">
+                        <div><strong>Original Words:</strong> {{ original_word_count }}</div>
+                        <div><strong>Summary Words:</strong> {{ summary_word_count }}</div>
+                        <div><strong>Compression Ratio:</strong> {{ '%.1f'|format(summary_word_count / original_word_count * 100) }}%</div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div><strong>Flesch Reading Ease:</strong> {{ '%.2f'|format(flesch_reading_ease) }}</div>
+                        <div><strong>Flesch-Kincaid Grade:</strong> {{ '%.2f'|format(flesch_kincaid_grade) }}</div>
+                        <div><strong>Gunning Fog:</strong> {{ '%.2f'|format(gunning_fog) }}</div>
+                        <div><strong>SMOG Index:</strong> {{ '%.2f'|format(smog_index) }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<script>
+document.getElementById('summarizeForm').onsubmit = function() {
+    document.getElementById('summarizeBtn').disabled = true;
+    document.getElementById('loadingSpinner').style.display = 'flex';
+};
+</script>
+</body>
+</html>
+

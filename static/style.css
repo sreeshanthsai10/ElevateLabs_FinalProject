@@ -1,0 +1,111 @@
+/* body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 15px;
+}
+.container {
+    background-color: rgba(255, 255, 255, 0.97);
+    border-radius: 15px;
+    padding: 35px;
+    margin-top: 40px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+}
+.card {
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.08);
+}
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: bold;
+}
+.btn-primary {
+    background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    border: none;
+    font-weight: 600;
+} */
+
+body, html {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #48C6EF 0%, #6f86d6 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+}
+
+.card {
+    border-radius: 18px !important;
+    box-shadow: 0 12px 32px rgba(72,198,239,0.13);
+    margin-top: 20px;
+}
+
+.responsive-card {
+    width: 100%;
+    min-width: 0;
+}
+
+.summary-text {
+    font-size: 1rem !important;
+    color: #262B49;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.btn-primary, .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    background: linear-gradient(100deg,#48C6EF 0%, #6f86d6 100%);
+    color: #fff;
+    border: none;
+}
+
+input, textarea {
+    font-size: 1.07rem;
+    background: #F6F7FB;
+    border-radius: 10px !important;
+    border: 1.4px solid #e2e5f1;
+    margin-bottom: 12px;
+}
+
+.loading-spinner {
+    display:none;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.spinner-border {
+    width: 2.3rem;
+    height: 2.3rem;
+}
+
+@media only screen and (max-width: 900px) {
+    .container {
+        max-width: 98vw;
+        padding: 8px;
+    }
+    .card { 
+        box-shadow: 0 6px 16px rgba(72,198,239,0.13);
+        padding: 8px;
+    }
+    .responsive-card {
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        margin-top: 15px;
+        padding: 4px;
+    }
+    .card {
+        padding: 3vw;
+    }
+    .summary-text {
+        font-size: 0.95rem !important;
+    }
+}
