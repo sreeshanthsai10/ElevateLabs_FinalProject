@@ -72,9 +72,9 @@ It supports long-text chunking, readability metrics, modern UI design, and is fu
 ai-text-summarizer/
 ├── app.py
 ├── requirements.txt
-├── Procfile
 ├── .gitignore
 ├── templates/
 │   └── index.html
 └── static/
     └── style.css
+
